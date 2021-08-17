@@ -6,6 +6,7 @@ use std::io::Write;
 use std::num::NonZeroU32;
 use std::ops::Bound;
 use std::str;
+use std::path;
 
 pub(super) type Writer = super::buffer::Buffer<u8>;
 
@@ -243,6 +244,20 @@ impl<S> Encode<S> for String {
 impl<S> DecodeMut<'_, '_, S> for String {
     fn decode(r: &mut Reader<'_>, s: &mut S) -> Self {
         <&str>::decode(r, s).to_string()
+    }
+}
+
+impl<S> Encode<S> for path::PathBuf {
+    fn encode(self, w: &mut Writer, s: &mut S) {
+        self.to_str()
+            .expect("`PathBuf`s must be valid UTF-8 for now!")
+            .encode(w, s);
+    }
+}
+
+impl<S> DecodeMut<'_, '_, S> for path::PathBuf {
+    fn decode(r: &mut Reader<'_>, s: &mut S) -> Self {
+        path::PathBuf::from(<&str>::decode(r, s))
     }
 }
 

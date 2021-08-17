@@ -18,6 +18,7 @@ use std::panic;
 use std::sync::atomic::AtomicUsize;
 use std::sync::Once;
 use std::thread;
+use std::path;
 
 /// Higher-order macro describing the server RPC API, allowing automatic
 /// generation of type-safe Rust APIs, both client-side and server-side.
@@ -55,7 +56,7 @@ macro_rules! with_api {
             FreeFunctions {
                 fn drop($self: $S::FreeFunctions);
                 fn track_env_var(var: &str, value: Option<&str>);
-                fn track_fs_path(path: &str);
+                fn track_fs_path(path: path::PathBuf);
             },
             TokenStream {
                 fn drop($self: $S::TokenStream);
@@ -361,6 +362,7 @@ mark_noop! {
     LineColumn,
     Spacing,
     Bound<usize>,
+    path::PathBuf,
 }
 
 rpc_encode_decode!(

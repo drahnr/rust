@@ -22,6 +22,7 @@ use pm::bridge::{server, TokenTree};
 use pm::{Delimiter, Level, LineColumn, Spacing};
 use std::ops::Bound;
 use std::{ascii, panic};
+use std::path;
 
 trait FromInternal<T> {
     fn from_internal(x: T) -> Self;
@@ -405,8 +406,8 @@ impl server::FreeFunctions for Rustc<'_> {
         self.sess.env_depinfo.borrow_mut().insert((Symbol::intern(var), value.map(Symbol::intern)));
     }
 
-    fn track_fs_path(&mut self, path: &str) {
-        self.sess.file_depinfo.borrow_mut().insert(Symbol::intern(path));
+    fn track_fs_path(&mut self, path: path::PathBuf) {
+        self.sess.file_depinfo.borrow_mut().insert(path);
     }
 }
 

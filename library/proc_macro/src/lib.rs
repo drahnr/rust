@@ -1228,8 +1228,7 @@ pub mod tracked {
     #[unstable(feature = "proc_macro_tracked_path", issue = "73921")]
     pub fn path<P: AsRef<Path>>(path: P) {
         let path: &Path = path.as_ref();
-        let path: &str = path.to_str().expect("`tracked::path` only accepts valid UTF-8!");
-        crate::bridge::client::FreeFunctions::track_fs_path(path);
+        crate::bridge::client::FreeFunctions::track_fs_path(path.to_path_buf());
     }
 
     use std::env::{self, VarError};
