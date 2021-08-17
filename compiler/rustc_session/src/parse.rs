@@ -13,8 +13,8 @@ use rustc_span::hygiene::ExpnId;
 use rustc_span::source_map::{FilePathMapping, SourceMap};
 use rustc_span::{MultiSpan, Span, Symbol};
 
-use std::str;
 use std::path;
+use std::str;
 
 /// The set of keys (and, optionally, values) that define the compilation
 /// environment of the crate, used to drive conditional compilation.

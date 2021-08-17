@@ -15,10 +15,10 @@ use std::marker;
 use std::mem;
 use std::ops::Bound;
 use std::panic;
+use std::path;
 use std::sync::atomic::AtomicUsize;
 use std::sync::Once;
 use std::thread;
-use std::path;
 
 /// Higher-order macro describing the server RPC API, allowing automatic
 /// generation of type-safe Rust APIs, both client-side and server-side.

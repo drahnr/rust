@@ -21,8 +21,8 @@ use rustc_span::{BytePos, FileName, MultiSpan, Pos, RealFileName, SourceFile, Sp
 use pm::bridge::{server, TokenTree};
 use pm::{Delimiter, Level, LineColumn, Spacing};
 use std::ops::Bound;
-use std::{ascii, panic};
 use std::path;
+use std::{ascii, panic};
 
 trait FromInternal<T> {
     fn from_internal(x: T) -> Self;
