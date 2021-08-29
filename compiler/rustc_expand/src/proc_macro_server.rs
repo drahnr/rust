@@ -406,8 +406,8 @@ impl server::FreeFunctions for Rustc<'_> {
         self.sess.env_depinfo.borrow_mut().insert((Symbol::intern(var), value.map(Symbol::intern)));
     }
 
-    fn track_fs_path(&mut self, path: path::PathBuf) {
-        self.sess.file_depinfo.borrow_mut().insert(path);
+    fn track_fs_path(&mut self, path: &str) {
+        self.sess.file_depinfo.borrow_mut().insert(path::PathBuf::from(path));
     }
 }
 

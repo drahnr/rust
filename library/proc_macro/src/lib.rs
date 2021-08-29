@@ -1226,9 +1226,14 @@ pub mod tracked {
     ///
     /// Commonly used for tracking asset preprocessing.
     #[unstable(feature = "proc_macro_tracked_path", issue = "73921")]
-    pub fn path<P: AsRef<Path>>(path: P) {
+    pub fn path<P: AsRef<Path>>(path: P) -> Result<(), ()> {
         let path: &Path = path.as_ref();
-        crate::bridge::client::FreeFunctions::track_fs_path(path.to_path_buf());
+        if let Some(path) = path.to_str() {
+            crate::bridge::client::FreeFunctions::track_fs_path(path);
+            Ok(())
+        } else {
+            Err(())
+        }
     }
 
     use std::env::{self, VarError};
