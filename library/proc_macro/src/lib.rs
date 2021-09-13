@@ -1222,7 +1222,16 @@ pub mod tracked {
     #[unstable(feature = "proc_macro_tracked_path", issue = "73921")]
     use std::path::Path;
 
-    /// Track a file explicitly.
+
+    /// Track a file as if it was a dependency.
+    ///
+    /// The file is located relative to the current file where the proc-macro
+    /// is used (similarly to how modules are found). The provided path is
+    /// interpreted in a platform-specific way at compile time. So, for
+    /// instance, an invocation with a Windows path
+    /// containing backslashes `\` would not compile correctly on Unix.
+    ///
+    /// Errors if the provided `Path` cannot be encoded as a `str`
     ///
     /// Commonly used for tracking asset preprocessing.
     #[unstable(feature = "proc_macro_tracked_path", issue = "73921")]
